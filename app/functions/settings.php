@@ -55,7 +55,7 @@ register_nav_menus( array(
 // -----------------------------------------------------
 // bodyにスラッグをクラスとして追加
 // -----------------------------------------------------
-function uk_temp_add_slug_to_body_class($classes) {
+function uk_tmp_add_slug_to_body_class($classes) {
     global $post;
     
     if (isset($post)) {
@@ -64,13 +64,13 @@ function uk_temp_add_slug_to_body_class($classes) {
     
     return $classes;
 }
-add_filter('body_class', 'uk_temp_add_slug_to_body_class');
+add_filter('body_class', 'uk_tmp_add_slug_to_body_class');
 
 
 // -----------------------------------------------------
 // ファビコンの設定（WordPress標準機能を使用）
 // -----------------------------------------------------
-function uk_temp_setup_favicon_support() {
+function uk_tmp_setup_favicon_support() {
   $favicon_url = get_template_directory_uri() . '/favicon.ico';
 
     // サイトアイコン機能を有効化
@@ -78,15 +78,15 @@ function uk_temp_setup_favicon_support() {
     
     // カスタムファビコンがない場合のフォールバック
     if ( ! has_site_icon() ) {
-        add_action( 'wp_head', 'uk_temp_add_default_favicon' );
+        add_action( 'wp_head', 'uk_tmp_add_default_favicon' );
     }
 }
-add_action( 'after_setup_theme', 'uk_temp_setup_favicon_support' );
+add_action( 'after_setup_theme', 'uk_tmp_setup_favicon_support' );
 
 // -----------------------------------------------------
 // ファビコンの設定
 // -----------------------------------------------------
-function uk_temp_add_default_favicon() {
+function uk_tmp_add_default_favicon() {
     // WordPressのサイトアイコンが設定されていない場合のみ実行
     if ( ! has_site_icon() ) {
         echo '<!-- ファビコン -->' . "\n";
@@ -112,7 +112,7 @@ function uk_temp_add_default_favicon() {
         }
     }
 }
-add_action('wp_head', 'uk_temp_add_default_favicon');
+add_action('wp_head', 'uk_tmp_add_default_favicon');
 
 
 

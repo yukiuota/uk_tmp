@@ -13,11 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * 
  * @since 1.0.0
  */
-function uk_temp_setup() {
+function uk_tmp_setup() {
     // 国際化対応
     load_theme_textdomain( 'uk_tmp', get_template_directory() . '/app/languages' );
 }
-add_action( 'after_setup_theme', 'uk_temp_setup' );
+add_action( 'after_setup_theme', 'uk_tmp_setup' );
 
 $includes = array(
     'app/functions/settings.php', // デフォルト設定

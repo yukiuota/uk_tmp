@@ -43,7 +43,7 @@ function optimize_etags() {
 // オブジェクトキャッシュの活用
 // -----------------------------------------------------
 class ObjectCacheOptimization {
-    private $cache_group = 'uk_temp_cache';
+    private $cache_group = 'uk_tmp_cache';
     private $cache_expiration = 3600; // 1時間
     
     // キャッシュを無効にするページ・条件
@@ -143,7 +143,7 @@ class ObjectCacheOptimization {
         }
         
         // カスタムフィルターでの除外設定
-        return apply_filters('uk_temp_skip_cache', false);
+        return apply_filters('uk_tmp_skip_cache', false);
     }
     
     /**
@@ -205,7 +205,7 @@ function clear_theme_cache() {
     wp_cache_flush();
     
     // オブジェクトキャッシュもクリア
-    wp_cache_flush_group('uk_temp_cache');
+    wp_cache_flush_group('uk_tmp_cache');
     
     // OPcacheもクリア（利用可能な場合）
     if (function_exists('opcache_reset')) {
@@ -363,7 +363,7 @@ function disable_cache_for_pages($page_slugs) {
  * フィルターを使用してキャッシュを条件付きで無効にする
  * 
  * 使用例:
- * add_filter('uk_temp_skip_cache', function($skip) {
+ * add_filter('uk_tmp_skip_cache', function($skip) {
  *     // 特定の条件でキャッシュをスキップ
  *     if (is_page('special-page') || isset($_COOKIE['user_preference'])) {
  *         return true;
@@ -382,7 +382,7 @@ new ObjectCacheOptimization();
 // add_no_cache_conditions(['custom-contact', 'survey', 'booking']);
 
 // 特定の条件でキャッシュを無効にする例
-// add_filter('uk_temp_skip_cache', function($skip) {
+// add_filter('uk_tmp_skip_cache', function($skip) {
 //     // ECサイトのカート・チェックアウトページ
 //     if (function_exists('is_cart') && (is_cart() || is_checkout())) {
 //         return true;
