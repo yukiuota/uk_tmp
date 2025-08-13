@@ -1,0 +1,46 @@
+{
+  "name": "uk_tmp",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack --watch --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yukiuota/uk_tmp.git"
+  },
+  "keywords": [
+    "wordpress",
+    "theme",
+    "block-editor",
+    "webpack"
+  ],
+  "author": "Yuki Uota",
+  "license": "GPL-2.0-or-later",
+  "bugs": {
+    "url": "https://github.com/yukiuota/uk_tmp/issues"
+  },
+  "homepage": "https://github.com/yukiuota/uk_tmp#readme",
+  "description": "WordPress オリジナルテーマ制作テンプレート。Webpack でブロック等をビルド。",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.1",
+    "@babel/preset-react": "^7.27.1",
+    "@wordpress/block-editor": "^14.17.0",
+    "@wordpress/blocks": "^14.11.0",
+    "@wordpress/components": "^29.8.0",
+    "@wordpress/element": "^6.22.0",
+    "@wordpress/scripts": "^30.15.0",
+    "babel-loader": "^10.0.0",
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.99.7",
+    "webpack-cli": "^6.0.1"
+  }
+}
