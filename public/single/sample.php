@@ -1,7 +1,7 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) exit;
 // newsデータ読み込み
-require_once get_template_directory() . '/public/include/controller/news.php';
+require_once get_template_directory() . '/app/controller/news.php';
 ?>
 
 <?php while ( have_posts() ) : the_post(); ?>
