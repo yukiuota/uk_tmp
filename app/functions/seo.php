@@ -20,7 +20,7 @@ add_action('wp_body_open', 'include_body_top');
 // -----------------------------------------------------
 function single_noindex()
 {
-  if (is_404() || is_singular('news') || is_category() || is_tag()) {
+  if (is_404() || is_singular('xxx') || is_category() || is_tag()) {
     echo '<meta name="robots" content="noindex , nofollow" />';
   }
 }
