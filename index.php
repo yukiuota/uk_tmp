@@ -18,13 +18,36 @@ elseif ( is_single() ) :
     }
 elseif ( is_page() ) :
     // 固定ページ
-    global $post;
-    $slug = basename( get_permalink( $post->ID ) );
-    $template_part = 'public/pages/' . $slug;
-    if ( ! locate_template( $template_part . '.php' ) ) {
-        $template_part = 'public/pages/page-base';
+    global $post, $wp;
+    
+    // 現在のリクエストパスを取得
+    $current_path = $wp->request;
+    
+    if ( !empty( $current_path ) ) {
+        // スラッシュをハイフンに変換してテンプレートを検索
+        $template_name = str_replace( '/', '-', $current_path );
+        $template_part = 'public/pages/' . $template_name;
+        
+        if ( locate_template( $template_part . '.php' ) ) {
+            get_template_part( $template_part );
+        } else {
+            // フォールバック：通常のスラッグベースの検索
+            $slug = basename( get_permalink( $post->ID ) );
+            $template_part = 'public/pages/' . $slug;
+            if ( ! locate_template( $template_part . '.php' ) ) {
+                $template_part = 'public/pages/page-base';
+            }
+            get_template_part( $template_part );
+        }
+    } else {
+        // パスが空の場合の通常の処理
+        $slug = basename( get_permalink( $post->ID ) );
+        $template_part = 'public/pages/' . $slug;
+        if ( ! locate_template( $template_part . '.php' ) ) {
+            $template_part = 'public/pages/page-base';
+        }
+        get_template_part( $template_part );
     }
-    get_template_part( $template_part );
 elseif ( is_archive() || is_category() || is_tag() || is_tax() || is_author() || is_date() ) :
     // アーカイブページ（カテゴリ、タグ、カスタムタクソノミー、投稿者、日付アーカイブを含む）
     $post_type = get_post_type();
