@@ -27,6 +27,8 @@ $includes = array(
     'app/functions/global_links.php', // サイト全体で共通するリンク
     'app/functions/cache.php', // キャッシュ関連
     // 以降必要なければ削除
+    'app/functions/post_gallery.php', // 投稿・カスタム投稿ギャラリー
+    'app/functions/single_gallery.php', // オリジナルページギャラリー
     'app/functions/widget.php', // ウィジェット関連
     'app/functions/custom_block.php', // ブロックカスタマイズ
     'app/functions/plugins.php', // プラグインカスタマイズ
