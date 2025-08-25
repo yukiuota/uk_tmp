@@ -47,8 +47,8 @@ add_theme_support( 'html5', array(
 
 // ナビゲーションメニューの登録
 register_nav_menus( array(
-    'primary' => __( 'Primary Menu', 'wp-template' ),
-    'footer'  => __( 'Footer Menu', 'wp-template' ),
+    'primary' => __( 'Primary Menu', 'uk_tmp' ),
+    'footer'  => __( 'Footer Menu', 'uk_tmp' ),
 ) );
 
 
