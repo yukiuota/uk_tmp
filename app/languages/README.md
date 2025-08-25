@@ -7,4 +7,4 @@ To create translation files:
 2. Create language-specific .po files (e.g., ja.po for Japanese)
 3. Compile .po files to .mo files
 
-The theme loads translations using the text domain 'wp-template'.
+The theme loads translations using the text domain 'uk_tmp'.
