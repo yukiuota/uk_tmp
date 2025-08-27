@@ -1,6 +1,8 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) exit;
 
-// newsデータ
-// $custom_text = get_field('text01');
+// カスタムフィールド取得
+$fields = get_fields();
+$field1 = $fields['text01'];
+$text02 = $fields['text02'];
 ?>
