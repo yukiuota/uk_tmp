@@ -84,7 +84,7 @@ function create_post_type()
 /* ---------- 管理画面カスタム投稿非表示 ---------- */
 function remove_post_function()
 {
-  remove_post_type_support('post', 'comments'); // コメント
+  // remove_post_type_support('post', 'comments'); // コメント
   remove_post_type_support('post', 'post-formats'); // 投稿フォーマット
   // remove_post_type_support( '〇〇', 'thumbnail' ); // アイキャッチ
 }
@@ -481,24 +481,24 @@ add_action('init', 'create_default_news_category', 20);
 
 // 管理画面でカラーピッカーのスタイルとスクリプトを読み込み
 function enqueue_color_picker_assets($hook_suffix) {
-    // タクソノミー編集ページでのみ読み込み
-    if ($hook_suffix === 'edit-tags.php' || $hook_suffix === 'term.php') {
-        wp_enqueue_style('wp-color-picker');
-        wp_enqueue_script('wp-color-picker');
-        wp_enqueue_script('term-color-picker', get_template_directory_uri() . '/include/js/term-color-picker.js', array('wp-color-picker'), '1.0.0', true);
-    }
+// タクソノミー編集ページでのみ読み込み
+if ($hook_suffix === 'edit-tags.php' || $hook_suffix === 'term.php') {
+wp_enqueue_style('wp-color-picker');
+wp_enqueue_script('wp-color-picker');
+wp_enqueue_script('term-color-picker', get_template_directory_uri() . '/include/js/term-color-picker.js', array('wp-color-picker'), '1.0.0', true);
+}
 }
 add_action('admin_enqueue_scripts', 'enqueue_color_picker_assets');
 
 // タクソノミー新規追加フォームにカラーピッカーフィールドを追加
 function add_term_color_field() {
-    ?>
-    <div class="form-field">
-        <label for="term_bg_color">背景色</label>
-        <input type="text" name="term_bg_color" id="term_bg_color" value="#ffffff" class="color-picker" />
-        <p class="description">このタームの背景色を選択してください。</p>
-    </div>
-    <?php
+?>
+<div class="form-field">
+    <label for="term_bg_color">背景色</label>
+    <input type="text" name="term_bg_color" id="term_bg_color" value="#ffffff" class="color-picker" />
+    <p class="description">このタームの背景色を選択してください。</p>
+</div>
+<?php
 }
 add_action('news-cat_add_form_fields', 'add_term_color_field');
 
@@ -509,16 +509,16 @@ function edit_term_color_field($term) {
         $bg_color = '#ffffff';
     }
     ?>
-    <tr class="form-field">
-        <th scope="row">
-            <label for="term_bg_color">背景色</label>
-        </th>
-        <td>
-            <input type="text" name="term_bg_color" id="term_bg_color" value="<?php echo esc_attr($bg_color); ?>" class="color-picker" />
-            <p class="description">このタームの背景色を選択してください。</p>
-        </td>
-    </tr>
-    <?php
+<tr class="form-field">
+    <th scope="row">
+        <label for="term_bg_color">背景色</label>
+    </th>
+    <td>
+        <input type="text" name="term_bg_color" id="term_bg_color" value="<?php echo esc_attr($bg_color); ?>" class="color-picker" />
+        <p class="description">このタームの背景色を選択してください。</p>
+    </td>
+</tr>
+<?php
 }
 add_action('news-cat_edit_form_fields', 'edit_term_color_field');
 

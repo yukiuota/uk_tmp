@@ -35,6 +35,7 @@ $includes = array(
     'app/functions/ajax_more.php', // ajaxでのカスタム投稿more
     'app/functions/ajax_search.php', // ajaxでのカスタム投稿絞り込み
     'app/functions/ajax_pagination.php', // ajaxでのページネーション
+    'app/functions/comment.php', // コメント関連
 
     'app/functions/test.php', // テスト関連コード
 );
