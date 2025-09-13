@@ -3,9 +3,9 @@
 <header class="header">
     <div class="header__inner">
         <?php if (is_home() || is_front_page()) : ?>
-        <h1 class="header__logo"><a href=""></a></h1>
+        <h1 class="header__logo"><a href="<?php echo esc_url( home_url() ); ?>"></a></h1>
         <?php else: ?>
-        <p class="header__logo"><a href=""></a></p>
+        <p class="header__logo"><a href="<?php echo esc_url( home_url() ); ?>"></a></p>
         <?php endif; ?>
 
 
