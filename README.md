@@ -39,6 +39,17 @@ npm run build
 - NPM パッケージとしての公開を避けるため `package.json` の `private: true` を設定しています。
 - ライセンスは WordPress に合わせて GPL-2.0-or-later としています（`style.css` と `LICENSE` を参照）。
 
+
+# テーマ制作メモ
+## 画像表示
+```
+<picture>
+<source srcset="<?php echo tmp_img('xx/xx.png'); ?> 1x, <?php echo tmp_img('xx/xx@2x.png'); ?> 2x" media="(max-width: 750px)">
+<img src="<?php echo tmp_img('xx/xx.png'); ?>" srcset="<?php echo tmp_img('xx/xx.png'); ?> 1x, <?php echo tmp_img('xx/xx@2x.png'); ?> 2x" <?php tmp_img_wh('xx/xx.png'); ?> alt="">
+</picture>
+```
+
+
 ## ライセンス
 
 GPL-2.0-or-later

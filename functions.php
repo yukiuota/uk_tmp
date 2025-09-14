@@ -21,6 +21,7 @@ add_action( 'after_setup_theme', 'uk_tmp_setup' );
 
 $includes = array(
     'app/functions/settings.php', // デフォルト設定
+    'app/functions/my_functions.php', // オリジナル関数
     'app/functions/seo.php', // SEO設定
     'app/functions/admin.php', // 管理画面カスタマイズ
     'app/functions/posts.php', // 投稿・カスタム投稿カスタマイズ
