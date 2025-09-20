@@ -1,32 +1,34 @@
 /**
  * 別のサンプルブロック
  */
-import { registerBlockType } from '@wordpress/blocks';
-import { RichText, useBlockProps } from '@wordpress/block-editor';
-import { Button } from '@wordpress/components';
+import { registerBlockType } from "@wordpress/blocks";
+import { RichText, useBlockProps } from "@wordpress/block-editor";
+import { Button } from "@wordpress/components";
 
 // ブロック登録
-registerBlockType('my-blocks/another-block', {
-  title: '別のサンプルブロック',
-  icon: 'smiley',
-  description: 'これは別のテスト用のブロックです',
-  category: 'theme-custom',
+registerBlockType("my-blocks/another-block", {
+  title: "別のサンプルブロック",
+  icon: "smiley",
+  description: "これは別のテスト用のブロックです",
+  category: "theme-custom",
   example: {},
   attributes: {
     items: {
-      type: 'array',
-      source: 'query',
-      selector: 'li',
-      default: [{
-        content: 'これは別のサンプルブロックです。（edit）'
-      }],
+      type: "array",
+      source: "query",
+      selector: "li",
+      default: [
+        {
+          content: "これは別のサンプルブロックです。（edit）",
+        },
+      ],
       query: {
         content: {
-          type: 'string',
-          source: 'html'
-        }
-      }
-    }
+          type: "string",
+          source: "html",
+        },
+      },
+    },
   },
 
   // 編集画面の表示
@@ -38,7 +40,7 @@ registerBlockType('my-blocks/another-block', {
       const newItems = items.map((item, i) => {
         if (i === index) {
           return {
-            content: newContent
+            content: newContent,
           };
         }
         return item;
@@ -47,9 +49,12 @@ registerBlockType('my-blocks/another-block', {
     };
 
     const addItem = () => {
-      const newItems = [...items, {
-        content: '新しいアイテム'
-      }];
+      const newItems = [
+        ...items,
+        {
+          content: "新しいアイテム",
+        },
+      ];
       setAttributes({ items: newItems });
     };
 
@@ -68,19 +73,13 @@ registerBlockType('my-blocks/another-block', {
                 value={item.content}
                 onChange={(newContent) => onChangeItemContent(newContent, index)}
               />
-              <Button
-                className="remove-item-button"
-                onClick={() => removeItem(index)}
-              >
+              <Button className="remove-item-button" onClick={() => removeItem(index)}>
                 削除
               </Button>
             </li>
           ))}
         </ul>
-        <Button
-          className="add-item-button"
-          onClick={addItem}
-        >
+        <Button className="add-item-button" onClick={addItem}>
           アイテムを追加
         </Button>
       </div>
@@ -90,18 +89,13 @@ registerBlockType('my-blocks/another-block', {
   // フロント表示
   save: ({ attributes }) => {
     const { items } = attributes;
-    
+
     return (
       <ul className="list">
         {items.map((item, index) => (
-          <RichText.Content
-            tagName="li"
-            className="list__item"
-            value={item.content}
-            key={index}
-          />
+          <RichText.Content tagName="li" className="list__item" value={item.content} key={index} />
         ))}
       </ul>
     );
-  }
+  },
 });
