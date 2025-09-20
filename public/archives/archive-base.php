@@ -18,7 +18,7 @@ if (is_tax() || is_category() || is_tag()) {
     </li>
 </ul>
 <?php endwhile; else : ?>
-    <p>記事がありません。</p>
+<p>記事がありません。</p>
 <?php endif; ?>
 
 <?php 

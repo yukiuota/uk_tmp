@@ -42,46 +42,46 @@ function single_gallery_admin_page() {
     }
     
     ?>
-    <div class="wrap">
-        <h1>画像ギャラリー管理</h1>
-        
-        <div class="gallery-info">
-            <p><strong>現在の画像数:</strong> <?php echo count($gallery_images); ?>枚</p>
-            <!-- <p><strong>ショートコード:</strong> <code>[single_gallery]</code> 
+<div class="wrap">
+    <h1>画像ギャラリー管理</h1>
+
+    <div class="gallery-info">
+        <p><strong>現在の画像数:</strong> <?php echo count($gallery_images); ?>枚</p>
+        <!-- <p><strong>ショートコード:</strong> <code>[single_gallery]</code> 
                 <button onclick="copyToClipboard('[single_gallery]')" class="button button-small">コピー</button>
             </p>
             <p><strong>PHP関数:</strong> <code>&lt;?php the_single_gallery(); ?&gt;</code></p> -->
-        </div>
-        
-        <form method="post" action="">
-            <?php wp_nonce_field('save_single_gallery', 'single_gallery_nonce'); ?>
-            
-            <div id="simple-gallery-container">
-                <h3>画像管理</h3>
-                
-                <div class="gallery-controls">
-                    <button type="button" id="add-gallery-image" class="button button-primary">画像を追加</button>
-                    <p class="description">画像ボックス全体をドラッグ&ドロップして並び替えることができます。</p>
-                </div>
-                
-                <div id="gallery-images-list">
-                    <?php foreach ($gallery_images as $index => $image_data): ?>
-                        <div class="gallery-image-item" data-index="<?php echo $index; ?>">
-                            <div class="image-preview">
-                                <?php if (!empty($image_data['url'])): 
+    </div>
+
+    <form method="post" action="">
+        <?php wp_nonce_field('save_single_gallery', 'single_gallery_nonce'); ?>
+
+        <div id="simple-gallery-container">
+            <h3>画像管理</h3>
+
+            <div class="gallery-controls">
+                <button type="button" id="add-gallery-image" class="button button-primary">画像を追加</button>
+                <p class="description">画像ボックス全体をドラッグ&ドロップして並び替えることができます。</p>
+            </div>
+
+            <div id="gallery-images-list">
+                <?php foreach ($gallery_images as $index => $image_data): ?>
+                <div class="gallery-image-item" data-index="<?php echo $index; ?>">
+                    <div class="image-preview">
+                        <?php if (!empty($image_data['url'])): 
                                     $alt_text = '';
                                     if (!empty($image_data['id'])) {
                                         $alt_text = get_post_meta($image_data['id'], '_wp_attachment_image_alt', true);
                                     }
                                 ?>
-                                    <img src="<?php echo esc_url($image_data['url']); ?>" alt="<?php echo esc_attr($alt_text); ?>" style="max-width: 150px; height: auto;">
-                                <?php endif; ?>
-                            </div>
-                            <div class="image-fields">
-                                <input type="hidden" name="gallery_images[<?php echo $index; ?>][id]" value="<?php echo esc_attr($image_data['id']); ?>">
-                                <input type="hidden" name="gallery_images[<?php echo $index; ?>][url]" value="<?php echo esc_url($image_data['url']); ?>">
-                                
-                                <?php
+                        <img src="<?php echo esc_url($image_data['url']); ?>" alt="<?php echo esc_attr($alt_text); ?>" style="max-width: 150px; height: auto;">
+                        <?php endif; ?>
+                    </div>
+                    <div class="image-fields">
+                        <input type="hidden" name="gallery_images[<?php echo $index; ?>][id]" value="<?php echo esc_attr($image_data['id']); ?>">
+                        <input type="hidden" name="gallery_images[<?php echo $index; ?>][url]" value="<?php echo esc_url($image_data['url']); ?>">
+
+                        <?php
                                 // 画像のサイズ情報を取得
                                 if (!empty($image_data['id'])) {
                                     $image_meta = wp_get_attachment_metadata($image_data['id']);
@@ -102,183 +102,183 @@ function single_gallery_admin_page() {
                                     }
                                 }
                                 ?>
-                                
-                                <button type="button" class="button remove-image">画像を削除</button>
-                                <p>※ドラッグで並び替えできます。</p>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
+
+                        <button type="button" class="button remove-image">画像を削除</button>
+                        <p>※ドラッグで並び替えできます。</p>
+                    </div>
                 </div>
+                <?php endforeach; ?>
             </div>
-            
-            <p class="submit">
-                <input type="submit" name="save_gallery" class="button-primary" value="保存">
-            </p>
-        </form>
-    </div>
-    
-    <style>
-    .gallery-info {
-        background: #f0f0f1;
-        border: 1px solid #c3c4c7;
-        border-radius: 4px;
-        padding: 15px;
-        margin: 20px 0;
-    }
-    
-    .gallery-info p {
-        margin: 5px 0;
-    }
-    
-    .gallery-info code {
-        background: #fff;
-        padding: 2px 6px;
-        border-radius: 3px;
-        font-size: 13px;
-    }
-    
-    #simple-gallery-container {
-        margin: 20px 0;
-        background: #fff;
-        border: 1px solid #c3c4c7;
-        border-radius: 4px;
-        padding: 20px;
-    }
-    
-    .gallery-image-item {
-        border: 1px solid #ddd;
-        padding: 15px;
-        margin-bottom: 15px;
-        background: #f9f9f9;
-        display: flex;
-        gap: 20px;
-        position: relative;
-        cursor: move;
-        border-radius: 4px;
-    }
-    
-    .gallery-image-item:hover {
-        background: #f0f0f0;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        border-color: #0073aa;
-    }
-    
-    .gallery-image-item::before {
-        content: '⋮⋮';
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        color: #666;
-        font-size: 16px;
-        font-weight: bold;
-        background: #fff;
-        padding: 5px 8px;
-        border-radius: 3px;
-        border: 1px solid #ddd;
-        pointer-events: none;
-    }
-    
-    .image-preview {
-        flex-shrink: 0;
-    }
-    
-    .image-preview img {
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-    
-    .image-fields {
-        flex-grow: 1;
-    }
-    
-    .image-info {
-        background: #f8f9fa;
-        border: 1px solid #e9ecef;
-        border-radius: 4px;
-        padding: 8px 12px;
-        margin: 10px 0;
-        font-size: 13px;
-        color: #495057;
-    }
-    
-    .image-info strong {
-        color: #212529;
-    }
-    
-    .gallery-controls {
-        margin-bottom: 20px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #ddd;
-        text-align: center;
-    }
-    
-    .remove-image {
-        color: #a00;
-    }
-    
-    .ui-sortable-helper {
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        transform: rotate(2deg);
-    }
-    
-    .ui-state-highlight {
-        height: 100px;
-        background: #e8f4fd;
-        border: 2px dashed #0073aa;
-        border-radius: 4px;
-        margin-bottom: 15px;
-    }
-    </style>
-    
-    <script>
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(function() {
-            alert('ショートコードをクリップボードにコピーしました！');
+        </div>
+
+        <p class="submit">
+            <input type="submit" name="save_gallery" class="button-primary" value="保存">
+        </p>
+    </form>
+</div>
+
+<style>
+.gallery-info {
+    background: #f0f0f1;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.gallery-info p {
+    margin: 5px 0;
+}
+
+.gallery-info code {
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+#simple-gallery-container {
+    margin: 20px 0;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.gallery-image-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #f9f9f9;
+    display: flex;
+    gap: 20px;
+    position: relative;
+    cursor: move;
+    border-radius: 4px;
+}
+
+.gallery-image-item:hover {
+    background: #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-color: #0073aa;
+}
+
+.gallery-image-item::before {
+    content: '⋮⋮';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #666;
+    font-size: 16px;
+    font-weight: bold;
+    background: #fff;
+    padding: 5px 8px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    pointer-events: none;
+}
+
+.image-preview {
+    flex-shrink: 0;
+}
+
+.image-preview img {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.image-fields {
+    flex-grow: 1;
+}
+
+.image-info {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 13px;
+    color: #495057;
+}
+
+.image-info strong {
+    color: #212529;
+}
+
+.gallery-controls {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.remove-image {
+    color: #a00;
+}
+
+.ui-sortable-helper {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transform: rotate(2deg);
+}
+
+.ui-state-highlight {
+    height: 100px;
+    background: #e8f4fd;
+    border: 2px dashed #0073aa;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+</style>
+
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        alert('ショートコードをクリップボードにコピーしました！');
+    });
+}
+
+jQuery(document).ready(function($) {
+    let imageIndex = <?php echo count($gallery_images); ?>;
+
+    // 画像追加ボタンのクリックイベント
+    $('#add-gallery-image').click(function() {
+        const mediaUploader = wp.media({
+            title: '画像を選択',
+            button: {
+                text: '選択'
+            },
+            multiple: true
         });
-    }
-    
-    jQuery(document).ready(function($) {
-        let imageIndex = <?php echo count($gallery_images); ?>;
-        
-        // 画像追加ボタンのクリックイベント
-        $('#add-gallery-image').click(function() {
-            const mediaUploader = wp.media({
-                title: '画像を選択',
-                button: {
-                    text: '選択'
-                },
-                multiple: true
+
+        mediaUploader.on('select', function() {
+            const attachments = mediaUploader.state().get('selection').toJSON();
+
+            attachments.forEach(function(attachment) {
+                addImageToGallery(attachment);
             });
-            
-            mediaUploader.on('select', function() {
-                const attachments = mediaUploader.state().get('selection').toJSON();
-                
-                attachments.forEach(function(attachment) {
-                    addImageToGallery(attachment);
-                });
-            });
-            
-            mediaUploader.open();
         });
-        
-        // 画像をギャラリーに追加する関数
-        function addImageToGallery(attachment) {
-            // ファイルサイズを人間が読みやすい形式に変換
-            function formatFileSize(bytes) {
-                if (bytes === 0) return '0 Bytes';
-                const k = 1024;
-                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-                const i = Math.floor(Math.log(bytes) / Math.log(k));
-                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-            }
-            
-            // 画像サイズ情報を準備
-            const width = attachment.width || 'N/A';
-            const height = attachment.height || 'N/A';
-            const fileSize = attachment.filesizeInBytes ? formatFileSize(attachment.filesizeInBytes) : 'N/A';
-            const altText = attachment.alt || '';
-            
-            const imageHtml = `
+
+        mediaUploader.open();
+    });
+
+    // 画像をギャラリーに追加する関数
+    function addImageToGallery(attachment) {
+        // ファイルサイズを人間が読みやすい形式に変換
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // 画像サイズ情報を準備
+        const width = attachment.width || 'N/A';
+        const height = attachment.height || 'N/A';
+        const fileSize = attachment.filesizeInBytes ? formatFileSize(attachment.filesizeInBytes) : 'N/A';
+        const altText = attachment.alt || '';
+
+        const imageHtml = `
                 <div class="gallery-image-item" data-index="${imageIndex}">
                     <div class="image-preview">
                         <img src="${attachment.url}" alt="${attachment.alt}" style="max-width: 150px; height: auto;">
@@ -295,48 +295,48 @@ function single_gallery_admin_page() {
                     </div>
                 </div>
             `;
-            
-            $('#gallery-images-list').append(imageHtml);
-            imageIndex++;
+
+        $('#gallery-images-list').append(imageHtml);
+        imageIndex++;
+    }
+
+    // 画像削除ボタンのクリックイベント
+    $(document).on('click', '.remove-image', function() {
+        if (confirm('この画像を削除しますか？')) {
+            $(this).closest('.gallery-image-item').remove();
+            updateImageIndexes();
         }
-        
-        // 画像削除ボタンのクリックイベント
-        $(document).on('click', '.remove-image', function() {
-            if (confirm('この画像を削除しますか？')) {
-                $(this).closest('.gallery-image-item').remove();
-                updateImageIndexes();
-            }
-        });
-        
-        // インデックスを更新する関数
-        function updateImageIndexes() {
-            $('#gallery-images-list .gallery-image-item').each(function(index) {
-                $(this).attr('data-index', index);
-                $(this).find('input, textarea').each(function() {
-                    const name = $(this).attr('name');
-                    if (name) {
-                        const newName = name.replace(/\[\d+\]/, '[' + index + ']');
-                        $(this).attr('name', newName);
-                    }
-                });
-            });
-        }
-        
-        // ソート機能を有効化
-        $('#gallery-images-list').sortable({
-            placeholder: 'ui-state-highlight',
-            cursor: 'move',
-            helper: 'clone',
-            tolerance: 'pointer',
-            update: function() {
-                updateImageIndexes();
-            }
-        });
-        
-        $('#gallery-images-list').disableSelection();
     });
-    </script>
-    <?php
+
+    // インデックスを更新する関数
+    function updateImageIndexes() {
+        $('#gallery-images-list .gallery-image-item').each(function(index) {
+            $(this).attr('data-index', index);
+            $(this).find('input, textarea').each(function() {
+                const name = $(this).attr('name');
+                if (name) {
+                    const newName = name.replace(/\[\d+\]/, '[' + index + ']');
+                    $(this).attr('name', newName);
+                }
+            });
+        });
+    }
+
+    // ソート機能を有効化
+    $('#gallery-images-list').sortable({
+        placeholder: 'ui-state-highlight',
+        cursor: 'move',
+        helper: 'clone',
+        tolerance: 'pointer',
+        update: function() {
+            updateImageIndexes();
+        }
+    });
+
+    $('#gallery-images-list').disableSelection();
+});
+</script>
+<?php
 }
 
 /**
@@ -498,4 +498,3 @@ function single_gallery_shortcode($atts) {
     return display_single_gallery($atts);
 }
 add_shortcode('single_gallery', 'single_gallery_shortcode');
-

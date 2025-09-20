@@ -2,40 +2,40 @@
 @use "../scss_var";
 
 .not-page {
-    padding: 80px 0;
-    text-align: center;
+  padding: 80px 0;
+  text-align: center;
 }
 
 .not-page__ttl {
-    font-size: 35px;
-    font-weight: 700;
+  font-size: 35px;
+  font-weight: 700;
 }
 
 .not-page__text {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 .not-page__btn {
-    margin-top: 35px;
-    font-size: 18px;
-    text-decoration: underline;
+  margin-top: 35px;
+  font-size: 18px;
+  text-decoration: underline;
 }
 
 @include scss_var.sp {
-    .not-page {
-        padding: 50px 0;
-    }
+  .not-page {
+    padding: 50px 0;
+  }
 
-    .not-page__ttl {
-        font-size: 25px;
-    }
+  .not-page__ttl {
+    font-size: 25px;
+  }
 
-    .not-page__text {
-        margin-top: 15px;
-    }
+  .not-page__text {
+    margin-top: 15px;
+  }
 
-    .not-page__btn {
-        margin-top: 25px;
-        font-size: 16px;
-    }
+  .not-page__btn {
+    margin-top: 25px;
+    font-size: 16px;
+  }
 }

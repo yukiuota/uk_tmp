@@ -108,39 +108,39 @@ class Custom_HTML_Widget extends WP_Widget {
         $title = !empty( $instance['title'] ) ? $instance['title'] : '';
         $html_content = !empty( $instance['html_content'] ) ? $instance['html_content'] : '';
         ?>
-        <div class="custom-html-widget-form">
-            <p>
-                <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'タイトル:', 'textdomain' ); ?></label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-            </p>
-            <p>
-                <label for="<?php echo $this->get_field_id( 'html_content' ); ?>"><?php _e( 'HTMLコンテンツ:', 'textdomain' ); ?></label>
-                <textarea class="widefat html-content-textarea" id="<?php echo $this->get_field_id( 'html_content' ); ?>" name="<?php echo $this->get_field_name( 'html_content' ); ?>" rows="10" style="font-family: monospace;"><?php echo esc_textarea( $html_content ); ?></textarea>
-            </p>
-            
-            <!-- プレビューエリア -->
-            <div class="html-preview-container">
-                <p><strong><?php _e( 'プレビュー:', 'textdomain' ); ?></strong></p>
-                <div class="html-preview" style="border: 1px solid #ddd; padding: 10px; background: #f9f9f9; min-height: 50px;">
-                    <?php echo do_shortcode( $html_content ); ?>
-                </div>
-                <p><small><?php _e( 'HTMLを編集すると、リアルタイムでプレビューが更新されます。', 'textdomain' ); ?></small></p>
-            </div>
-        </div>
+<div class="custom-html-widget-form">
+    <p>
+        <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'タイトル:', 'textdomain' ); ?></label>
+        <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+    </p>
+    <p>
+        <label for="<?php echo $this->get_field_id( 'html_content' ); ?>"><?php _e( 'HTMLコンテンツ:', 'textdomain' ); ?></label>
+        <textarea class="widefat html-content-textarea" id="<?php echo $this->get_field_id( 'html_content' ); ?>" name="<?php echo $this->get_field_name( 'html_content' ); ?>" rows="10" style="font-family: monospace;"><?php echo esc_textarea( $html_content ); ?></textarea>
+    </p>
 
-        <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            // リアルタイムプレビュー機能
-            $('#<?php echo $this->get_field_id( 'html_content' ); ?>').on('input', function() {
-                var htmlContent = $(this).val();
-                var previewArea = $(this).closest('.custom-html-widget-form').find('.html-preview');
-                
-                // HTMLをプレビューエリアに反映
-                previewArea.html(htmlContent);
-            });
-        });
-        </script>
-        <?php
+    <!-- プレビューエリア -->
+    <div class="html-preview-container">
+        <p><strong><?php _e( 'プレビュー:', 'textdomain' ); ?></strong></p>
+        <div class="html-preview" style="border: 1px solid #ddd; padding: 10px; background: #f9f9f9; min-height: 50px;">
+            <?php echo do_shortcode( $html_content ); ?>
+        </div>
+        <p><small><?php _e( 'HTMLを編集すると、リアルタイムでプレビューが更新されます。', 'textdomain' ); ?></small></p>
+    </div>
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    // リアルタイムプレビュー機能
+    $('#<?php echo $this->get_field_id( 'html_content' ); ?>').on('input', function() {
+        var htmlContent = $(this).val();
+        var previewArea = $(this).closest('.custom-html-widget-form').find('.html-preview');
+
+        // HTMLをプレビューエリアに反映
+        previewArea.html(htmlContent);
+    });
+});
+</script>
+<?php
     }
 
     /**
@@ -170,22 +170,25 @@ add_action( 'widgets_init', 'register_custom_html_widget' );
  */
 function custom_html_widget_admin_styles() {
     ?>
-    <style>
-    .custom-html-widget-form .html-content-textarea {
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 12px;
-    }
-    .html-preview-container {
-        margin-top: 15px;
-    }
-    .html-preview {
-        border-radius: 3px;
-        overflow: auto;
-    }
-    .html-preview * {
-        max-width: 100%;
-    }
-    </style>
-    <?php
+<style>
+.custom-html-widget-form .html-content-textarea {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+}
+
+.html-preview-container {
+    margin-top: 15px;
+}
+
+.html-preview {
+    border-radius: 3px;
+    overflow: auto;
+}
+
+.html-preview * {
+    max-width: 100%;
+}
+</style>
+<?php
 }
 add_action( 'admin_head-widgets.php', 'custom_html_widget_admin_styles' );

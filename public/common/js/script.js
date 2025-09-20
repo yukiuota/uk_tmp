@@ -6,17 +6,17 @@ const smoothScrollTrigger = document.querySelectorAll('a[href^="#"]');
 const headerHeightOption = 0; // ここに「0」または「1」を指定します（0: 配慮しない, 1: 配慮する）
 
 for (let i = 0; i < smoothScrollTrigger.length; i++) {
-  smoothScrollTrigger[i].addEventListener('click', (e) => {
+  smoothScrollTrigger[i].addEventListener("click", (e) => {
     e.preventDefault();
-    let href = smoothScrollTrigger[i].getAttribute('href');
-    let targetElement = document.getElementById(href.replace('#', ''));
+    let href = smoothScrollTrigger[i].getAttribute("href");
+    let targetElement = document.getElementById(href.replace("#", ""));
     const rect = targetElement.getBoundingClientRect().top;
     const offset = window.pageYOffset;
-    const gap = headerHeightOption === 1 ? document.querySelector('.header').offsetHeight : 0;
+    const gap = headerHeightOption === 1 ? document.querySelector(".header").offsetHeight : 0;
     const target = rect + offset - gap;
     window.scrollTo({
       top: target,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   });
 }
@@ -25,19 +25,19 @@ for (let i = 0; i < smoothScrollTrigger.length; i++) {
 const smoothScrollToTarget = (targetElement) => {
   const rect = targetElement.getBoundingClientRect().top;
   const offset = window.pageYOffset;
-  const gap = headerHeightOption === 1 ? document.querySelector('.header').offsetHeight : 0;
+  const gap = headerHeightOption === 1 ? document.querySelector(".header").offsetHeight : 0;
   const target = rect + offset - gap;
   window.scrollTo({
     top: target,
-    behavior: 'smooth',
+    behavior: "smooth",
   });
 };
 
 // ページ読み込み時にURLのハッシュ部分の要素へスムーズスクロール
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
   const hash = window.location.hash;
   if (hash) {
-    const targetElement = document.getElementById(hash.replace('#', ''));
+    const targetElement = document.getElementById(hash.replace("#", ""));
     if (targetElement) {
       smoothScrollToTarget(targetElement);
     }
@@ -45,12 +45,12 @@ window.addEventListener('load', () => {
 });
 
 // 別ページへのリンクをクリックしたときのスムーズスクロール
-document.addEventListener('click', (e) => {
+document.addEventListener("click", (e) => {
   const targetElement = e.target;
-  if (targetElement.tagName === 'A' && targetElement.getAttribute('href').startsWith('#')) {
+  if (targetElement.tagName === "A" && targetElement.getAttribute("href").startsWith("#")) {
     e.preventDefault();
-    const href = targetElement.getAttribute('href');
-    const hash = href.replace('#', '');
+    const href = targetElement.getAttribute("href");
+    const hash = href.replace("#", "");
     const targetElementOnDifferentPage = document.getElementById(hash);
     if (targetElementOnDifferentPage) {
       smoothScrollToTarget(targetElementOnDifferentPage);
@@ -60,92 +60,82 @@ document.addEventListener('click', (e) => {
   }
 });
 
-
-
 // ヘッダーメニュー
 function headerMenu() {
   document.getElementById("menu-trigger").addEventListener("click", function () {
-    let menu = document.getElementById('js-menu');
-    menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
-    this.classList.toggle('active');
-    document.body.classList.toggle('js-on');
+    let menu = document.getElementById("js-menu");
+    menu.style.display = menu.style.display === "none" || menu.style.display === "" ? "block" : "none";
+    this.classList.toggle("active");
+    document.body.classList.toggle("js-on");
   });
 
   let menuLinks = document.querySelectorAll(".menu a");
   menuLinks.forEach(function (link) {
     link.addEventListener("click", function () {
-      let menu = document.getElementById('js-menu');
-      menu.style.display = 'none';
-      document.getElementById("menu-trigger").classList.toggle('active');
-      document.body.classList.toggle('js-on');
+      let menu = document.getElementById("js-menu");
+      menu.style.display = "none";
+      document.getElementById("menu-trigger").classList.toggle("active");
+      document.body.classList.toggle("js-on");
     });
   });
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
   headerMenu();
-
 });
 
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   const observerOptions = {
     root: null,
-    rootMargin: '0px',
-    threshold: 0.1 // 要素の表示領域の閾値
+    rootMargin: "0px",
+    threshold: 0.1, // 要素の表示領域の閾値
   };
 
   const handleFadeIn = (entries, observer) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const target = entry.target;
-        const delay = target.getAttribute('data-delay') || 0; // デフォルトの遅延時間を設定 (ミリ秒)
+        const delay = target.getAttribute("data-delay") || 0; // デフォルトの遅延時間を設定 (ミリ秒)
         setTimeout(() => {
-          target.classList.add('view-on');
+          target.classList.add("view-on");
           observer.unobserve(target);
         }, delay);
       }
     });
   };
 
-  const observeElementsWithClass = className => {
-    const elements = document.querySelectorAll('.' + className);
-    if ('IntersectionObserver' in window) {
+  const observeElementsWithClass = (className) => {
+    const elements = document.querySelectorAll("." + className);
+    if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver(handleFadeIn, observerOptions);
-      elements.forEach(element => {
+      elements.forEach((element) => {
         observer.observe(element);
       });
     }
   };
 
   // 各クラスに対してIntersectionObserverを実行
-  observeElementsWithClass('view01');
-  observeElementsWithClass('view02');
-  observeElementsWithClass('view03');
-  observeElementsWithClass('view04');
-  observeElementsWithClass('view05');
+  observeElementsWithClass("view01");
+  observeElementsWithClass("view02");
+  observeElementsWithClass("view03");
+  observeElementsWithClass("view04");
+  observeElementsWithClass("view05");
 });
 
 // スライドアニメーション
-document.addEventListener('DOMContentLoaded', () => {
-  const btns = document.querySelectorAll('.js-slide-h_btn');
-  const slideHs = document.querySelectorAll('.js-slide-h');
+document.addEventListener("DOMContentLoaded", () => {
+  const btns = document.querySelectorAll(".js-slide-h_btn");
+  const slideHs = document.querySelectorAll(".js-slide-h");
 
   if (btns.length && slideHs.length) {
     btns.forEach((btn, index) => {
-      btn.addEventListener('click', () => {
-        btns[index].classList.toggle('js-active');
-        slideHs[index].classList.toggle('js-active');
+      btn.addEventListener("click", () => {
+        btns[index].classList.toggle("js-active");
+        slideHs[index].classList.toggle("js-active");
       });
     });
   }
 });
-
-
 
 // アコーディオン
 document.addEventListener("DOMContentLoaded", () => {
@@ -211,40 +201,43 @@ const setUpAccordion = () => {
       }
     });
   });
-}
+};
 
 /**
  * アニメーションの時間とイージング
  */
 const animTiming = {
   duration: 400,
-  easing: "ease-out"
+  easing: "ease-out",
 };
 
 /**
  * アコーディオンを閉じるときのキーフレーム
  */
-const closingAnimKeyframes = (content) => [{
-  height: content.offsetHeight + 'px', // height: "auto"だとうまく計算されないため要素の高さを指定する
-  opacity: 1,
-}, {
-  height: 0,
-  opacity: 0,
-}];
+const closingAnimKeyframes = (content) => [
+  {
+    height: content.offsetHeight + "px", // height: "auto"だとうまく計算されないため要素の高さを指定する
+    opacity: 1,
+  },
+  {
+    height: 0,
+    opacity: 0,
+  },
+];
 
 /**
  * アコーディオンを開くときのキーフレーム
  */
-const openingAnimKeyframes = (content) => [{
-  height: 0,
-  opacity: 0,
-}, {
-  height: content.offsetHeight + 'px',
-  opacity: 1,
-}];
-
-
-
+const openingAnimKeyframes = (content) => [
+  {
+    height: 0,
+    opacity: 0,
+  },
+  {
+    height: content.offsetHeight + "px",
+    opacity: 1,
+  },
+];
 
 // タブ切り替え
 function tabSelect() {
