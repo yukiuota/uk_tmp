@@ -8,7 +8,26 @@ if ( !defined( 'ABSPATH' ) ) exit;
 // ----------------------------------------------------- //
 // Contact Form7
 // ----------------------------------------------------- //
-// Contact Form7のCSS・JS
+
+// Contact Form7 の JS と CSS を全ページで読み込むのを無効化
+add_filter( 'wpcf7_load_js', '__return_false' );
+add_filter( 'wpcf7_load_css', '__return_false' );
+
+// ショートコードがあるページだけ自動判定して Contact Form7 の JS と CSS を読み込む
+function my_enqueue_cf7_assets() {
+    global $post;
+    if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'contact-form-7' ) ) {
+        if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
+            wpcf7_enqueue_scripts();
+        }
+        if ( function_exists( 'wpcf7_enqueue_styles' ) ) {
+            wpcf7_enqueue_styles();
+        }
+    }
+}
+add_action( 'wp_enqueue_scripts', 'my_enqueue_cf7_assets' );
+
+// Contact Form7のカスタマイズするCSS・JSの読み込み
 function enqueue_custom_assets_for_specific_page() {
     if (is_page('contact')) { // 固定ページのスラッグ指定
         // CSSファイルの読み込み
