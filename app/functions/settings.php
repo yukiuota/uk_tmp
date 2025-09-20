@@ -174,5 +174,60 @@ class UK_Tmp_Scripts_Styles {
     }
 }
 
+
 // スクリプト・スタイル管理を初期化
 new UK_Tmp_Scripts_Styles();
+
+// =============================================================================
+// スクリプト最適化（defer/async属性追加）
+// =============================================================================
+
+/**
+ * スクリプトタグにdefer/async属性を追加
+ * 
+ * @param string $tag スクリプトタグ
+ * @param string $handle スクリプトハンドル
+ * @param string $src スクリプトソース
+ * @return string 変更されたスクリプトタグ
+ */
+function uk_tmp_add_script_attributes( $tag, $handle, $src ) {
+    // defer属性を追加するスクリプトハンドル
+    $defer_scripts = array(
+        'uk-tmp-main-script',        // メインテーマスクリプト（jQuery非依存）
+        'custom-page-script',        // CF7フォーム（jQuery非依存、DOMContentLoaded使用）
+    );
+    
+    // jQuery依存スクリプトはjQueryがロード後にdefer適用
+    $jquery_dependent_defer_scripts = array(
+        'custom-ajax-search-script', // Ajax検索（jQuery依存）
+        'custom-ajax-script',        // Ajax more（jQuery依存）
+        'ajax-pagination',           // Ajaxページネーション（jQuery依存）
+    );
+    
+    // async属性を追加するスクリプトハンドル（アナリティクスなど独立したスクリプト）
+    $async_scripts = array(
+        // 'analytics-script', // 例：Google Analyticsなどの非同期スクリプト
+    );
+    
+    // jQueryは通常通り読み込み、他のスクリプトはdefer/async適用
+    if ( $handle !== 'jquery' && $handle !== 'jquery-core' && $handle !== 'jquery-migrate' ) {
+        
+        // defer属性を追加（jQuery非依存）
+        if ( in_array( $handle, $defer_scripts ) ) {
+            $tag = str_replace( ' src', ' defer src', $tag );
+        }
+        
+        // jQuery依存スクリプトにもdefer適用（jQueryは先に読み込まれているため）
+        if ( in_array( $handle, $jquery_dependent_defer_scripts ) ) {
+            $tag = str_replace( ' src', ' defer src', $tag );
+        }
+        
+        // async属性を追加
+        if ( in_array( $handle, $async_scripts ) ) {
+            $tag = str_replace( ' src', ' async src', $tag );
+        }
+    }
+    
+    return $tag;
+}
+add_filter( 'script_loader_tag', 'uk_tmp_add_script_attributes', 10, 3 );
