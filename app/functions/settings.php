@@ -84,66 +84,10 @@ function uk_tmp_add_slug_to_body_class( $classes ) {
 }
 add_filter( 'body_class', 'uk_tmp_add_slug_to_body_class' );
 
-// =============================================================================
-// ファビコン設定
-// =============================================================================
 
-/**
- * ファビコンサポートクラス
- */
-class UK_Tmp_Favicon_Support {
-    
-    /**
-     * コンストラクタ
-     */
-    public function __construct() {
-        add_action( 'after_setup_theme', array( $this, 'setup_favicon_support' ) );
-        add_action( 'wp_head', array( $this, 'add_default_favicon' ) );
-    }
-    
-    /**
-     * ファビコンサポートのセットアップ
-     */
-    public function setup_favicon_support() {
-        // カスタムロゴ機能を有効化
-        add_theme_support( 'custom-logo' );
-    }
-    
-    /**
-     * WordPressサイトアイコンが未設定の場合にデフォルトファビコンを追加
-     */
-    public function add_default_favicon() {
-        // WordPressサイトアイコンが設定されている場合は実行しない
-        if ( has_site_icon() ) {
-            return;
-        }
-        
-        echo '<!-- デフォルトファビコン -->' . "\n";
-        
-        // .ico ファビコン
-        $favicon_ico_path = get_template_directory() . '/favicon.ico';
-        if ( file_exists( $favicon_ico_path ) ) {
-            echo '<link rel="icon" href="' . esc_url( get_template_directory_uri() . '/favicon.ico' ) . '">' . "\n";
-        }
-        
-        echo '<!-- モバイル端末用アイコン -->' . "\n";
-        
-        // Apple Touch Icon
-        $apple_touch_icon_path = get_template_directory() . '/apple-touch-icon.png';
-        if ( file_exists( $apple_touch_icon_path ) ) {
-            echo '<link rel="apple-touch-icon" href="' . esc_url( get_template_directory_uri() . '/apple-touch-icon.png' ) . '">' . "\n";
-        }
-        
-        // Android Chrome用アイコン
-        $android_chrome_path = get_template_directory() . '/android-chrome.png';
-        if ( file_exists( $android_chrome_path ) ) {
-            echo '<link rel="icon" type="image/png" href="' . esc_url( get_template_directory_uri() . '/android-chrome.png' ) . '">' . "\n";
-        }
-    }
-}
+// サイトアイコン（favicon）サポートを有効化
+add_theme_support( 'site-icon' );
 
-// ファビコンサポートを初期化
-new UK_Tmp_Favicon_Support();
 
 
 // =============================================================================
