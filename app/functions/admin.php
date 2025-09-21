@@ -17,6 +17,9 @@ add_action('admin_enqueue_scripts', 'enqueue_dashicons');
 // 管理画面の必要ない項目を非表示
 // -----------------------------------------------------
 function remove_menus() {
+  remove_meta_box('dashboard_quick_press', 'dashboard', 'side');
+  remove_meta_box('dashboard_primary', 'dashboard', 'side'); // WordPressニュース
+  remove_meta_box('dashboard_activity', 'dashboard', 'normal');
   // remove_menu_page( 'index.php' ); // ダッシュボード.
   // remove_menu_page( 'edit.php' ); // 投稿.
   // remove_menu_page( 'upload.php' ); // メディア.

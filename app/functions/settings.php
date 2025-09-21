@@ -32,9 +32,7 @@ remove_action( 'wp_head', 'wp_resource_hints', 2 );
 remove_action( 'wp_head', 'feed_links', 2 );
 remove_action( 'wp_head', 'feed_links_extra', 3 );
 
-/**
- * テーマサポート設定
- */
+// テーマサポート設定
 add_theme_support( 'automatic-feed-links' );
 
 // 自動段落整形を無効化
