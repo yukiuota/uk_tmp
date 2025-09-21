@@ -25,6 +25,7 @@ $includes = array(
     'app/functions/seo.php', // SEO設定
     'app/functions/admin.php', // 管理画面カスタマイズ
     'app/functions/posts.php', // 投稿・カスタム投稿カスタマイズ
+    'app/functions/patterns.php', // パターンカスタマイズ
     'app/functions/global_links.php', // サイト全体で共通するリンク
     'app/functions/cache.php', // キャッシュ関連
     // 以降必要なければ削除
