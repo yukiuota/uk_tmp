@@ -16,6 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function uk_tmp_setup() {
     // 国際化対応
     load_theme_textdomain( 'uk_tmp', get_template_directory() . '/app/languages' );
+    
+    // ブロックエディタサポート
+    add_theme_support( 'wp-block-styles' );
+    add_theme_support( 'responsive-embeds' );
+    add_theme_support( 'editor-styles' );
+    
+    // ブロックパターンサポート（WordPress 5.5以降）
+    add_theme_support( 'block-patterns' );
 }
 add_action( 'after_setup_theme', 'uk_tmp_setup' );
 
@@ -25,7 +33,6 @@ $includes = array(
     'app/functions/seo.php', // SEO設定
     'app/functions/admin.php', // 管理画面カスタマイズ
     'app/functions/posts.php', // 投稿・カスタム投稿カスタマイズ
-    'app/functions/patterns.php', // パターンカスタマイズ
     'app/functions/global_links.php', // サイト全体で共通するリンク
     'app/functions/cache.php', // キャッシュ関連
     // 以降必要なければ削除
