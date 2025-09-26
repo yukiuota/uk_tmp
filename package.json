@@ -6,7 +6,12 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack --watch --mode development",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mcp:start": "chrome-devtools-mcp",
+    "mcp:headless": "chrome-devtools-mcp --headless=true --isolated=true",
+    "mcp:dev": "chrome-devtools-mcp --isolated=true --channel=dev",
+    "perf:check": "node performance-check.js",
+    "perf:localhost": "node performance-check.js http://localhost:10013/"
   },
   "repository": {
     "type": "git",
@@ -38,7 +43,9 @@
     "@wordpress/element": "^6.28.0",
     "@wordpress/scripts": "^30.21.0",
     "babel-loader": "^10.0.0",
+    "chrome-devtools-mcp": "^0.3.0",
     "css-loader": "^7.1.2",
+    "puppeteer": "^24.22.3",
     "style-loader": "^4.0.0",
     "webpack": "^5.99.7",
     "webpack-cli": "^6.0.1"
